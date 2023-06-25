@@ -33,8 +33,8 @@ class Service {
 
   // 子组件手动添加TabItem
   addTabItem(tabItem: ItemTab) {
-    // .pagePayload.value.propsTabOption.push(tabItem)
-    // Service.pagePayload.value.propsActiveName = tabItem.name
+    this.PagePayload.propsTabOption.push(tabItem)
+    this.PagePayload.propsActiveName = tabItem.name
     // 不能使用这一种，this变为undefined
     // this.PagePayload.propsTabOption.push(tabItem)
     // this.PagePayload.propsActiveName = tabItem.name
