@@ -4,6 +4,7 @@ import router from '../router'
 import pinia from '../store'
 
 import 'normalize.css'
+import 'element-plus/dist/index.css'
 
 class Init {
   static initApp: Init = new Init()
