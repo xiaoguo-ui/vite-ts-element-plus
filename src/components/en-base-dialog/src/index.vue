@@ -1,5 +1,12 @@
 <template>
-  <el-dialog v-bind="$attrs" v-model="service.PagePayload.visible">
+  <el-dialog
+    v-bind="$attrs"
+    v-model="service.PagePayload.visible"
+    @open="$emit('open')"
+    @opened="$emit('opened')"
+    @close="$emit('close')"
+    @closed="$emit('closed')"
+  >
     <template #header>
       <slot name="header"></slot>
     </template>

@@ -7,25 +7,25 @@ export interface Props {
 }
 
 class Service {
-  static service: Service = new Service()
-  static pagePayload = ref({
+  //组件负载
+  pagePayload = ref({
     loading: false
-  }) //页面负载
+  })
 
-  get getPayload() {
-    return Service.pagePayload.value
+  get PagePayload() {
+    return this.pagePayload.value
   }
 
   //处理loading
   async handleLoadingFn(fn: () => void) {
     try {
-      this.getPayload.loading = true
+      this.PagePayload.loading = true
       await fn()
     } catch (e) {
-      // 抛出接口请求的错误，手动处理
+      // 抛出错误，例如请求接口错误的时候，需要把此错误抛出去
       throw new Error(e as any)
     } finally {
-      this.getPayload.loading = false
+      this.PagePayload.loading = false
     }
   }
 
@@ -35,7 +35,10 @@ class Service {
       throw new Error('当button的isButtonLoading为true时，等待处理的方法必传')
     }
   }
+  // 这个主要是用来给父组件关闭loading
+  manualCloseLoading() {
+    this.PagePayload.loading = false
+  }
 }
 
-export const { pagePayload } = Service
-export default Service.service
+export default Service
