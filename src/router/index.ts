@@ -3,7 +3,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 const routes: RouteRecordRaw[] = [
   {
     path: '',
-    redirect: '/test-message'
+    redirect: '/test-message-box'
   },
   {
     path: '/test-tab',
@@ -16,6 +16,10 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/test-message',
     component: () => import('@/views/test-message/index.vue')
+  },
+  {
+    path: '/test-message-box',
+    component: () => import('@/views/test-message-box/index.vue')
   }
 ]
 

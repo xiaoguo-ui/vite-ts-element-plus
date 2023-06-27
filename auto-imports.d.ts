@@ -5,4 +5,6 @@
 export {}
 declare global {
   const ElButton: typeof import('element-plus/es')['ElButton']
+  const ElMessageBox: typeof import('element-plus/es')['ElMessageBox']
+  const ElSwitch: typeof import('element-plus/es')['ElSwitch']
 }
