@@ -6,6 +6,8 @@ import pinia from '../store'
 import 'normalize.css'
 import 'element-plus/dist/index.css'
 
+import globalCustomElComponent from '@/utils/GlobalManualComponent'
+
 class Init {
   static initApp: Init = new Init()
   app!: App
@@ -17,6 +19,7 @@ class Init {
 
   // 加载插件和挂载
   mountGlobal() {
+    this.app.use(globalCustomElComponent)
     this.app.use(router)
     this.app.use(pinia)
     this.app.mount('#app')
