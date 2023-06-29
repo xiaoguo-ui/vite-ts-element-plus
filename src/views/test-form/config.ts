@@ -1,26 +1,30 @@
-import emit from '@/utils/GlobalMitt.ts'
+// import emit from '@/utils/GlobalMitt.ts'
+import { handleInput, handleBlur } from './service.ts'
 
 export const arr = [
   {
     col: { span: 11 },
     formItemProps: {},
-    componentsProps: { onInput: handleInput, clearable: true, placeholder: '需要输入input的值' },
+    componentsProps: {
+      onInput: handleInput,
+      onBlur: handleBlur,
+      clearable: true,
+      placeholder: '输入清空下拉框的值'
+    },
     label: '输入框',
-    prop: 'input',
+    prop: 'inputTest',
     type: 'el-input'
   },
   {
     col: { span: 11 },
     formItemProps: {},
     componentsProps: {
-      size: 'large',
       clearable: true,
-      multiple: true,
       filterable: true,
-      onVisibleChange: visibleChange
+      style: { width: '100%' }
     },
     label: '下拉框',
-    prop: 'select',
+    prop: 'selectTest',
     type: 'el-select',
     children: [
       {
@@ -40,11 +44,15 @@ export const arr = [
   }
 ]
 
-// 输入事件
-function handleInput(val: string) {
-  emit.emit('handleInput', val)
+export const formRules = {
+  inputTest: [{ validator: validInputTest, trigger: 'blur' }],
+  selectTest: [{ required: true, message: 'Please select name', trigger: 'change' }]
 }
 
-function visibleChange(val: boolean) {
-  console.log('=>(config.ts:44) val', val)
+function validInputTest(rule: any, value: any, callback: any) {
+  if (!value) {
+    return callback(new Error('当前无值'))
+  }
+
+  return callback()
 }
