@@ -5,7 +5,7 @@
     :model="formData"
     :rules="formRules"
   >
-    <el-row>
+    <el-row v-bind="formRow">
       <el-col v-bind="item.col" v-for="(item, index) in formColumn" :key="index">
         <!-- 自定义表单项 -->
         <template v-if="item.slotName">
@@ -14,17 +14,25 @@
         <!-- 主体项-->
         <!--没有孩子的项-->
         <el-form-item
-          v-if="!item.slotName && !item.children && !item.children?.length"
+          v-if="!item.slotName && !item.children?.length"
           :label="item.label"
           :prop="item.prop"
           v-bind="item.formItemProps"
         >
-          <component v-model="formData[item.prop]" :is="item.type" v-bind="item.componentsProps">
+          <!-- 自定义label-->
+          <template #label v-if="item.slotCustomLabel">
+            <slot :name="item.slotCustomLabel"></slot>
+          </template>
+          <component v-model="formData[item.prop!]" :is="item.type" v-bind="item.componentsProps">
           </component>
         </el-form-item>
         <!-- 有孩子的项-->
         <el-form-item v-else :label="item.label" :prop="item.prop" v-bind="item.formItemProps">
-          <component v-model="formData[item.prop]" :is="item.type" v-bind="item.componentsProps">
+          <!-- 自定义label插槽-->
+          <template #label v-if="item.slotCustomLabel">
+            <slot :name="item.slotCustomLabel"></slot>
+          </template>
+          <component v-model="formData[item.prop!]" :is="item.type" v-bind="item.componentsProps">
             <component
               v-for="(child, childIndex) in item.children"
               :key="childIndex"
@@ -44,9 +52,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
   import Service from './service'
-  import type { FormInstance } from 'element-plus'
   import { defaultProps } from './service/type'
 
   const props = withDefaults(defineProps<defaultProps>(), {})
